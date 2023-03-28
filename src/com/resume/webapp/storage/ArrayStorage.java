@@ -1,32 +1,33 @@
+package com.resume.webapp.storage;
+
+import com.resume.webapp.model.Resume;
+
 import java.util.Arrays;
 
 /**
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    Resume[] storage = new Resume[10000];
+    private final Resume[] storage = new Resume[10000];
 
     private int size = 0;
-    void clear() {
-        for (int i = 0; i < storage.length; i++) {
-            storage[i] = null;
-        }
-        //TODO: Если обнулять ячейки,
-        // то идея сама подсказывает что нужно делать через fill
 
-        //Arrays.fill(storage, null);
+    public void clear() {
+        Arrays.fill(storage, 0, size, null);
+        size = 0;
     }
 
-    void save(Resume resume) {
+    public void save(Resume resume) {
         for (int i = 0; i < storage.length; i++) {
             if (storage[i] == null) {
                 storage[i] = resume;
                 return;
             }
+            size++;
         }
     }
 
-    Resume get(String uuid) {
+    public Resume get(String uuid) {
         for (Resume resume : storage) {
             if (resume != null || resume.equals(uuid)) {
                 return resume;
@@ -35,10 +36,10 @@ public class ArrayStorage {
         return null;
     }
 
-    void delete(String uuid) {
-        int index = -1;
+    public void delete(String uuid) {
+        int index = - 1;
         for (int i = 0; i < storage.length; i++) {
-            if (storage[i] != null && uuid.equals(storage[i].uuid)) {
+            if (storage[i] != null && uuid.equals(storage[i].getUuid())) {
                 index = i;
                 break;
             }
@@ -48,6 +49,7 @@ public class ArrayStorage {
                 storage[i] = storage[i + 1];
             }
             storage[storage.length - 1] = null;
+            size--;
         } else {
             System.out.println("Resume " + uuid + " not found");
         }
@@ -56,24 +58,17 @@ public class ArrayStorage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    Resume[] getAll() {
+    public Resume[] getAll() {
         int count = 0;
-        for (Resume resume: storage) {
-            if (resume != null){
+        for (Resume resume : storage) {
+            if (resume != null) {
                 count++;
             }
         }
         return Arrays.copyOf(storage, count);
     }
 
-    int size() {
-        if (size == 0) {
-            for (Resume resume : storage) {
-                if (resume != null) {
-                    size++;
-                }
-            }
-        }
+    public int size() {
         return size;
     }
 }
