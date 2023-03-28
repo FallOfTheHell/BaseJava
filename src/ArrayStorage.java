@@ -6,8 +6,15 @@ import java.util.Arrays;
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
 
+    private int size = 0;
     void clear() {
-        Arrays.fill(storage, null);
+        for (int i = 0; i < storage.length; i++) {
+            storage[i] = null;
+        }
+        //TODO: Если обнулять ячейки,
+        // то идея сама подсказывает что нужно делать через fill
+
+        //Arrays.fill(storage, null);
     }
 
     void save(Resume resume) {
@@ -37,9 +44,10 @@ public class ArrayStorage {
             }
         }
         if (index != -1) {
-            Resume[] newStorage = new Resume[storage.length - 1];
-            System.arraycopy(storage, index + 1, newStorage, index, storage.length - index - 1);
-            storage = newStorage;
+            for (int i = index; i < storage.length - 1; i++) {
+                storage[i] = storage[i + 1];
+            }
+            storage[storage.length - 1] = null;
         } else {
             System.out.println("Resume " + uuid + " not found");
         }
@@ -59,12 +67,13 @@ public class ArrayStorage {
     }
 
     int size() {
-        int count = 0;
-        for (Resume resume: storage) {
-            if (resume != null){
-                count++;
+        if (size == 0) {
+            for (Resume resume : storage) {
+                if (resume != null) {
+                    size++;
+                }
             }
         }
-        return count;
+        return size;
     }
 }
