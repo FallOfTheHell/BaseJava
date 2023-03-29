@@ -19,12 +19,8 @@ public class MainTestArrayStorage {
 
         ARRAY_STORAGE.save(r1);
         ARRAY_STORAGE.save(r2);
-        //ARRAY_STORAGE.save(r3);
+        ARRAY_STORAGE.save(r3);
 
-        //TODO: у меня вопрос к методу get(),
-        // почему он ищет только 1 элемент,
-        // а не тот который я указываю?
-        // Или так и должно быть?
         System.out.println("Get r1: " + ARRAY_STORAGE.get(r3.getUuid()));
         System.out.println("Size: " + ARRAY_STORAGE.size());
 

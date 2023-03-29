@@ -30,7 +30,7 @@ public class ArrayStorage {
                 size++;
                 //TODO: правильно ли я ввожу в консоль инфу?
                 // "save на отсутствие резюме в storage"
-                System.out.println("Resume " + resume.getUuid() + " not found");
+                System.out.println("Resume " + resume.getUuid() + " has not been added yet");
                 return;
             }
         }
@@ -53,13 +53,12 @@ public class ArrayStorage {
     }
 
     public Resume get(String uuid) {
-        for (Resume resume : storage) {
-            if (resume != null || resume.getUuid().equals(uuid)) {
-                return resume;
-            } else {
-                System.out.println("Resume " + resume.getUuid() + " not found");
+        for (int i = 0; i < size; i++) {
+            if (storage[i] != null && storage[i].getUuid().equals(uuid)) {
+                return storage[i];
             }
         }
+        System.out.println("Resume " + uuid + " not found");
         return null;
     }
 
