@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class ArrayStorage {
     private final Resume[] storage = new Resume[10000];
 
-    private int size = 0;
+    private int size;
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -18,19 +18,16 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
-        int length = storage.length;
-        if (length == size) {
+        if (size >= storage.length) {
             System.out.println("Array is full. Can't save resume " + resume.getUuid());
             return;
         }
 
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < storage.length; i++) {
             if (storage[i] == null) {
                 storage[i] = resume;
                 size++;
-                //TODO: правильно ли я ввожу в консоль инфу?
-                // "save на отсутствие резюме в storage"
-                System.out.println("Resume " + resume.getUuid() + " has not been added yet");
+                System.out.println("Resume " + resume.getUuid() + " added");
                 return;
             }
         }
@@ -54,7 +51,7 @@ public class ArrayStorage {
 
     public Resume get(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (storage[i] != null && storage[i].getUuid().equals(uuid)) {
+            if (storage[i].getUuid().equals(uuid)) {
                 return storage[i];
             }
         }
@@ -63,19 +60,18 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-        int length = storage.length;
         int index = -1;
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < size; i++) {
             if (storage[i] != null && uuid.equals(storage[i].getUuid())) {
                 index = i;
                 break;
             }
         }
         if (index != -1) {
-            for (int i = index; i < length - 1; i++) {
+            for (int i = index; i < size - 1; i++) {
                 storage[i] = storage[i + 1];
             }
-            storage[length - 1] = null;
+            storage[size - 1] = null;
             size--;
         } else {
             System.out.println("Resume " + uuid + " not found");
@@ -86,13 +82,7 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
-        int count = 0;
-        for (Resume resume : storage) {
-            if (resume != null) {
-                count++;
-            }
-        }
-        return Arrays.copyOf(storage, count);
+        return Arrays.copyOf(storage, size);
     }
 
     public int size() {
