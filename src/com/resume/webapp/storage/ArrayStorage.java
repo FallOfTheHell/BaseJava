@@ -23,14 +23,9 @@ public class ArrayStorage {
             return;
         }
 
-        for (int i = 0; i < storage.length; i++) {
-            if (storage[i] == null) {
-                storage[i] = resume;
-                size++;
-                System.out.println("Resume " + resume.getUuid() + " added");
-                return;
-            }
-        }
+        storage[size] = resume;
+        size++;
+        System.out.println("Resume " + resume.getUuid() + " added");
     }
 
     public void update(Resume resume) {
@@ -62,11 +57,12 @@ public class ArrayStorage {
     public void delete(String uuid) {
         int index = -1;
         for (int i = 0; i < size; i++) {
-            if (storage[i] != null && uuid.equals(storage[i].getUuid())) {
+            if (uuid.equals(storage[i].getUuid())) {
                 index = i;
                 break;
             }
         }
+
         if (index != -1) {
             for (int i = index; i < size - 1; i++) {
                 storage[i] = storage[i + 1];
