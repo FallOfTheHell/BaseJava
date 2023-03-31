@@ -19,16 +19,17 @@ public class MainTestArrayStorage {
 
         ARRAY_STORAGE.save(r1);
         ARRAY_STORAGE.save(r2);
-        //ARRAY_STORAGE.save(r3);
+        ARRAY_STORAGE.save(r3);
+        ARRAY_STORAGE.save(r3);
 
         System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
         System.out.println("Size: " + ARRAY_STORAGE.size());
 
         System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
 
-        //ARRAY_STORAGE.update(r1);
+        ARRAY_STORAGE.update(r1);
         printAll();
-        ARRAY_STORAGE.delete(r3.getUuid());
+        ARRAY_STORAGE.delete(r1.getUuid());
         printAll();
         ARRAY_STORAGE.clear();
         printAll();
