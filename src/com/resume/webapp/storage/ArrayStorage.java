@@ -38,34 +38,28 @@ public class ArrayStorage {
     }
 
     public Resume get(String uuid) {
-        //TODO: Вопрос по этому методу, он находит именно объект, а не идекс.
-        // Правильно ли то что я его не стал изменять?
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                return storage[i];
-            }
+        int index = getResume(uuid);
+
+        if (index != -1) {
+            return storage[index];
+        } else {
+            System.out.println("Resume " + uuid + " not found");
+            return null;
         }
-        System.out.println("Resume " + uuid + " not found");
-        return null;
     }
 
     public void delete(String uuid) {
         int index = getResume(uuid);
 
         if (index != -1) {
-            for (int i = 0; i < size - 1; i++) {
-                storage[i] = storage[i + 1];
-            }
-            storage[size - 1] = null;
             size--;
+            System.arraycopy(storage, index + 1, storage, index, size - index);
         } else {
             System.out.println("Resume " + uuid + " not found");
         }
     }
 
     protected int getResume(String uuid) {
-        //TODO: почему метод должен быть protected а не private?
-        // Этот метод используется внутри класса, зачем тогда делать его видимым в рамках пакетов?
         for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].getUuid())) {
                 return i;
