@@ -1,13 +1,14 @@
 package com.resume.webapp;
 
 import com.resume.webapp.model.Resume;
-import com.resume.webapp.storage.ArrayStorage;
+import com.resume.webapp.storage.SortedArrayStorage;
+import com.resume.webapp.storage.Storage;
 
 /**
  * Test for your com.resume.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    static final Storage ARRAY_STORAGE = new SortedArrayStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume();
@@ -28,7 +29,7 @@ public class MainTestArrayStorage {
 
         ARRAY_STORAGE.update(r1);
         printAll();
-        ARRAY_STORAGE.delete(r3.getUuid());
+        ARRAY_STORAGE.delete(r1.getUuid());
         printAll();
         ARRAY_STORAGE.clear();
         printAll();
