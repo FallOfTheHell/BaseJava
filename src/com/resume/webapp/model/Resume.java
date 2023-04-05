@@ -7,7 +7,6 @@ import java.util.Objects;
  */
 public class Resume implements Comparable<Resume>{
 
-    // Unique identifier
     private String uuid;
 
     @Override

@@ -2,6 +2,8 @@ package com.resume.webapp.storage;
 
 import com.resume.webapp.model.Resume;
 
+import java.util.Arrays;
+
 public abstract class AbstractArrayStorage implements Storage {
     protected static final int STORAGE_LIMIT = 10000;
 
@@ -19,16 +21,21 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public void save(Resume resume) {
+        int index = Arrays.binarySearch(storage, 0, size, resume);
+
         if (size >= storage.length) {
             System.out.println("Array is full. Can't save resume " + resume.getUuid());
-        } else if (getIndex(resume.getUuid()) != -1) {
+        } else if (index >= 0) {
             System.out.println("The resume " + resume.getUuid() + " already exists");
         } else {
-            storage[size] = resume;
+            index = -index - 1;
+            System.arraycopy(storage, index, storage, index + 1, size - index);
+            storage[index] = resume;
             size++;
             System.out.println("Resume " + resume.getUuid() + " added");
         }
     }
+
 
     public void update(Resume resume) {
         int index = getIndex(resume.getUuid());
@@ -51,5 +58,22 @@ public abstract class AbstractArrayStorage implements Storage {
         }
     }
 
+    public void clear() {
+        Arrays.fill(storage, 0, size, null);
+        size = 0;
+    }
+
+    public Resume[] getAll() {
+        return Arrays.copyOf(storage, size);
+    }
+
+    public int size() {
+        return size;
+    }
+
     protected abstract int getIndex(String uuid);
+
+    protected abstract void insertResume(Resume resume);
+
+    protected abstract void removeResume(int index);
 }
