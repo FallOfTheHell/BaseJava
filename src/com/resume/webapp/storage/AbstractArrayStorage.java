@@ -21,16 +21,14 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public void save(Resume resume) {
-        int index = Arrays.binarySearch(storage, 0, size, resume);
+        int index = getIndex(resume.getUuid());
 
         if (size >= storage.length) {
             System.out.println("Array is full. Can't save resume " + resume.getUuid());
         } else if (index >= 0) {
             System.out.println("The resume " + resume.getUuid() + " already exists");
         } else {
-            index = -index - 1;
-            System.arraycopy(storage, index, storage, index + 1, size - index);
-            storage[index] = resume;
+            insertResume(resume);
             size++;
             System.out.println("Resume " + resume.getUuid() + " added");
         }
@@ -51,8 +49,8 @@ public abstract class AbstractArrayStorage implements Storage {
         int index = getIndex(uuid);
 
         if (index != -1) {
+            removeResume(index);
             size--;
-            System.arraycopy(storage, index + 1, storage, index, size - index);
         } else {
             System.out.println("Resume " + uuid + " not found");
         }
