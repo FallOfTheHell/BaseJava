@@ -10,7 +10,7 @@ public abstract class AbstractArrayStorage implements Storage {
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size;
 
-    public Resume get(String uuid) {
+    public final Resume get(String uuid) {
         int index = getIndex(uuid);
 
         if (index == -1) {
@@ -20,7 +20,7 @@ public abstract class AbstractArrayStorage implements Storage {
         return storage[index];
     }
 
-    public void save(Resume resume) {
+    public final void save(Resume resume) {
         int index = getIndex(resume.getUuid());
 
         if (size >= storage.length) {
@@ -35,7 +35,7 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
 
-    public void update(Resume resume) {
+    public final void update(Resume resume) {
         int index = getIndex(resume.getUuid());
 
         if (index != -1) {
@@ -45,7 +45,7 @@ public abstract class AbstractArrayStorage implements Storage {
         }
     }
 
-    public void delete(String uuid) {
+    public final void delete(String uuid) {
         int index = getIndex(uuid);
 
         if (index != -1) {
