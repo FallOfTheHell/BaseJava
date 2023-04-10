@@ -11,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class AbstractArrayStorageTest {
     private final Storage storage;
-    private final Resume resume1 = new Resume("UUID_1");
-    private final Resume resume2 = new Resume("UUID_2");
-    private final Resume resume3 = new Resume("UUID_3");
-    private final Resume resume4 = new Resume("UUID_4");
+    private static final Resume resume1 = new Resume("UUID_1");
+    private static final Resume resume2 = new Resume("UUID_2");
+    private static final Resume resume3 = new Resume("UUID_3");
+    private static final Resume resume4 = new Resume("UUID_4");
 
     public AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
@@ -26,7 +26,9 @@ public abstract class AbstractArrayStorageTest {
         storage.save(resume1);
         storage.save(resume2);
         storage.save(resume3);
-        //storage.save(resume4);
+        assertGet(resume1);
+        assertGet(resume2);
+        assertGet(resume3);
     }
 
     @Test
@@ -47,19 +49,17 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     void update() {
-        storage.update(resume1);
-        assertSame(resume1, storage.get("UUID_1"));
+        Resume resume5 = new Resume("UUID_1");
+        storage.update(resume5);
+        assertSame(resume5, storage.get("UUID_1"));
     }
 
     @Test
     void delete() {
         storage.delete("UUID_3");
         assertThrows(NotExistStorageException.class, () -> {
-            assertGet(resume3);
+            storage.get(resume3.getUuid());
         });
-        //TODO: Не понимаю, ожидаю исключение NotExistStorageException,
-        // компилятор ругается на то что ожидает исключение ArrayIndexOutOfBoundsException
-        // ставишь исключение AIOFBE ожидает NESE, какой-то замкнутый круг)
         assertSize(2);
     }
 
@@ -119,9 +119,12 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     void saveOverflow(){
+        for (int i = 4; i <= 10_000; i++) {
+            storage.save(new Resume("UUID_" + i));
+        }
+
         assertThrows(StorageException.class, () -> {
-            storage.save(resume3);
-            fail("Переполнение произошло раньше времени");
-        });
+            storage.save(new Resume("UUID_overflow"));
+        }, "Переполнение произошло раньше времени");
     }
 }
