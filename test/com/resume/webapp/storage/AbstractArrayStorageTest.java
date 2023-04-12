@@ -28,6 +28,8 @@ public abstract class AbstractArrayStorageTest {
     private static final String UUID_4 = "uuid_4";
     private static final Resume resume4 = new Resume(UUID_4);
 
+    private static final int STORAGE_LIMIT = 10000;
+
     public AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
     }
@@ -130,8 +132,9 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     void saveOverflow(){
+        storage.clear();
         try {
-            for (int i = 4; i <= 9_000; i++) {
+            for (int i = 0; i <= STORAGE_LIMIT; i++) {
                 storage.save(new Resume("uuid_" + i));
             }
             Assertions.fail("Переполнение произошло раньше времени");
