@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ListStorage extends AbstractStorage {
 
-    private List<Resume> storage = new ArrayList<>();
+    private final List<Resume> storage = new ArrayList<>();
 
     @Override
     protected int getIndex(String uuid) {
@@ -31,28 +31,32 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume processGet(int index) {
+    protected boolean isExist(Object searchKey) {
+        return searchKey.equals(storage);
+    }
+
+    @Override
+    protected Resume doGet(int index) {
         return storage.get(index);
     }
 
-    //TODO: я могу этот метод использовать как заглушку?
     @Override
-    protected boolean isStorageOverflow() {
+    protected boolean isStorageOverflow(Resume resume) {
         return false;
     }
 
     @Override
-    protected void setResume(int index, Resume resume) {
+    protected void doUpdate(int index, Resume resume) {
         storage.set(index, resume);
     }
 
     @Override
-    protected void clearStorage() {
+    protected void doClear() {
         storage.clear();
     }
 
     @Override
-    protected Resume[] processGetAll(int size) {
+    protected Resume[] doGetAll(int size) {
         return storage.subList(0, size).toArray(new Resume[size]);
     }
 }

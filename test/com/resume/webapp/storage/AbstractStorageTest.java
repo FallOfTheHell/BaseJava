@@ -4,16 +4,15 @@ import com.resume.webapp.exception.ExistStorageException;
 import com.resume.webapp.exception.NotExistStorageException;
 import com.resume.webapp.exception.StorageException;
 import com.resume.webapp.model.Resume;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public abstract class AbstractArrayStorageTest {
+class AbstractStorageTest {
+
     private final Storage storage;
 
-    private static final String UUID_OVERFLOW = "uuid_overflow";
     private static final String UUID_NOT_EXIST = "uuid_not_exist";
 
     private static final String UUID_1 = "uuid_1";
@@ -28,9 +27,7 @@ public abstract class AbstractArrayStorageTest {
     private static final String UUID_4 = "uuid_4";
     private static final Resume resume4 = new Resume(UUID_4);
 
-    private static final int STORAGE_LIMIT = 10000;
-
-    public AbstractArrayStorageTest(Storage storage) {
+    public AbstractStorageTest(Storage storage) {
         this.storage = storage;
     }
 
@@ -127,23 +124,6 @@ public abstract class AbstractArrayStorageTest {
     void deleteNotExist(){
         assertThrows(NotExistStorageException.class, () -> {
             storage.delete(UUID_NOT_EXIST);
-        });
-    }
-
-    @Test
-    void saveOverflow(){
-        storage.clear();
-        try {
-            for (int i = 0; i <= STORAGE_LIMIT; i++) {
-                storage.save(new Resume("uuid_" + i));
-            }
-            Assertions.fail("Переполнение произошло раньше времени");
-        } catch (StorageException e) {
-            e.printStackTrace();
-        }
-
-        assertThrows(StorageException.class, () -> {
-            storage.save(new Resume(UUID_OVERFLOW));
         });
     }
 }

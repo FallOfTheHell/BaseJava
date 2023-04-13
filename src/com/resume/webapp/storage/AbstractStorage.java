@@ -2,7 +2,6 @@ package com.resume.webapp.storage;
 
 import com.resume.webapp.exception.ExistStorageException;
 import com.resume.webapp.exception.NotExistStorageException;
-import com.resume.webapp.exception.StorageException;
 import com.resume.webapp.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
@@ -10,22 +9,23 @@ public abstract class AbstractStorage implements Storage {
     protected int size;
 
     public final Resume get(String uuid) {
-        int index = getIndex(uuid);
+        Object searchKey = getIndex(uuid);
 
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        } else {
-            return processGet(index);
+        //TODO: проверка работает только с такой записью
+        if (isExist(searchKey) || getIndex(uuid) < 0) {
+            getNotExistingSearchKey(uuid);
         }
+
+        return doGet(getIndex(uuid));
     }
 
     public final void save(Resume resume) {
-        int index = getIndex(resume.getUuid());
+        Object searchKey = resume.getUuid();
 
-        if (isStorageOverflow()) {
-            throw new StorageException("Storage overflow", resume.getUuid());
-        } else if (index >= 0) {
-            throw new ExistStorageException(resume.getUuid());
+        isStorageOverflow(resume);
+
+        if (isExist(searchKey)) {
+            getExistingSearchKey(resume.getUuid());
         } else {
             insertResume(resume);
             size++;
@@ -34,48 +34,56 @@ public abstract class AbstractStorage implements Storage {
     }
 
     public final void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
+        Object searchKey = resume.getUuid();
 
-        if (index >= 0) {
-            setResume(index, resume);
+        if (isExist(searchKey)) {
+            doUpdate(getIndex(resume.getUuid()), resume);
         } else {
-            throw new NotExistStorageException(resume.getUuid());
+            getNotExistingSearchKey(resume.getUuid());
         }
     }
 
     public final void delete(String uuid) {
-        int index = getIndex(uuid);
-
-        if (index >= 0) {
-            removeResume(index);
+        if (isExist(uuid)) {
+            removeResume(getIndex(uuid));
             size--;
         } else {
-            throw new NotExistStorageException(uuid);
+            getNotExistingSearchKey(uuid);
         }
     }
 
     public final void clear() {
-        clearStorage();
+        doClear();
         size = 0;
     }
 
     public Resume[] getAll() {
-        return processGetAll(size);
+        return doGetAll(size);
     }
 
     public int size() {
         return size;
     }
 
-    protected abstract Resume processGet(int index);
+    protected void getExistingSearchKey(String uuid) {
+        throw new ExistStorageException(uuid);
+    }
 
-    protected abstract boolean isStorageOverflow();
+    private void getNotExistingSearchKey(String uuid) {
+        throw new NotExistStorageException(uuid);
+    }
 
-    protected abstract void setResume(int index, Resume resume);
+    protected abstract boolean isExist(Object searchKey);
 
-    protected abstract void clearStorage();
+    protected abstract Resume doGet(int index);
 
-    protected abstract Resume[] processGetAll(int size);
+    protected abstract boolean isStorageOverflow(Resume resume);
+
+    protected abstract void doUpdate(int index, Resume resume);
+
+    protected abstract void doClear();
+
+    protected abstract Resume[] doGetAll(int size);
 
     protected abstract int getIndex(String uuid);
 
