@@ -4,9 +4,9 @@ import com.resume.webapp.model.Resume;
 
 public class ArrayStorage extends AbstractArrayStorage {
 
-    protected int getSearchKey(String uuid) {
+    protected Object getSearchKey(Object searchKey) {
         for (int i = 0; i < size; i++) {
-            if (uuid.equals(storage[i].getUuid())) {
+            if (searchKey.equals(storage[i].getUuid())) {
                 return i;
             }
         }
@@ -14,13 +14,14 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected Resume insertResume(Resume resume) {
-        return storage[size] = resume;
+    protected Resume insertResume(int index, Resume resume) {
+        storage[size] = resume;
+        return resume;
     }
 
     @Override
     protected void removeResume(int index) {
         storage[index] = storage[size - 1];
-        storage[size] = null;
+        storage[size - 1] = null;
     }
 }

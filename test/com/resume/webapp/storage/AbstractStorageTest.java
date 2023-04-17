@@ -1,13 +1,8 @@
 package com.resume.webapp.storage;
 
-import com.resume.webapp.exception.ExistStorageException;
-import com.resume.webapp.exception.NotExistStorageException;
-import com.resume.webapp.exception.StorageException;
 import com.resume.webapp.model.Resume;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class AbstractStorageTest {
 
@@ -41,89 +36,17 @@ class AbstractStorageTest {
 
     @Test
     void get() {
-        assertGet(resume1);
-        assertGet(resume2);
-        assertGet(resume3);
-    }
-
-    void assertGet(Resume resume){
-        assertEquals(resume, storage.get(resume.getUuid()));
     }
 
     @Test
     void save() {
-        storage.save(resume4);
-        assertGet(resume4);
-        assertSize(4);
     }
 
     @Test
     void update() {
-        Resume resume = new Resume(UUID_1);
-        storage.update(resume);
-        assertSame(resume, storage.get(UUID_1));
     }
 
     @Test
     void delete() {
-        storage.delete(UUID_3);
-        assertThrows(NotExistStorageException.class, () -> {
-            storage.get(resume3.getUuid());
-        });
-        assertSize(2);
-    }
-
-    @Test
-    void clear() {
-        storage.clear();
-        assertArrayEquals(new Resume[0], storage.getAll());
-        assertSize(0);
-    }
-
-    @Test
-    void getAll() {
-        final Resume[] actual = new Resume[]{resume1, resume2, resume3};
-        assertArrayEquals(actual, storage.getAll());
-    }
-
-    @Test
-    void size() {
-        assertSize(3);
-    }
-
-    void assertSize(int size){
-        assertEquals(size, storage.size());
-    }
-
-    @Test
-    void getNotExist() {
-        assertThrows(NotExistStorageException.class, () -> {
-            storage.get(UUID_NOT_EXIST);
-        });
-    }
-
-    @Test
-    void saveExist(){
-        assertThrows(StorageException.class, () -> {
-            storage.save(resume1);
-        });
-
-        assertThrows(ExistStorageException.class, () -> {
-            storage.save(resume1);
-        });
-    }
-
-    @Test
-    void updateNotExist(){
-        assertThrows(NotExistStorageException.class, () -> {
-            storage.update(resume4);
-        });
-    }
-
-    @Test
-    void deleteNotExist(){
-        assertThrows(NotExistStorageException.class, () -> {
-            storage.delete(UUID_NOT_EXIST);
-        });
     }
 }

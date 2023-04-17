@@ -1,7 +1,7 @@
 package com.resume.webapp;
 
 import com.resume.webapp.model.Resume;
-import com.resume.webapp.storage.ListStorage;
+import com.resume.webapp.storage.ArrayStorage;
 import com.resume.webapp.storage.Storage;
 
 /**
@@ -9,7 +9,7 @@ import com.resume.webapp.storage.Storage;
  */
 
 public class MainTestArrayStorage {
-    static final Storage ARRAY_STORAGE = new ListStorage();
+    static final Storage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume("uuid1");
