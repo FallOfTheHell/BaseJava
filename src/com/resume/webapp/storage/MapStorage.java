@@ -35,13 +35,13 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected Object getSearchKey(Object searchKey) {
+    protected Object getSearchKey(String searchKey) {
         for (Map.Entry<String, Resume> entry: storage.entrySet()) {
             if (entry.getValue().getUuid().equals(searchKey)){
                 return entry.getKey();
             }
         }
-        return null;
+        return searchKey;
     }
 
     @Override

@@ -27,7 +27,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     public void doDelete(Object searchKey){
-        removeResume((Integer) getSearchKey(searchKey));
+        removeResume((Integer) getSearchKey((String) searchKey));
         size--;
     }
 

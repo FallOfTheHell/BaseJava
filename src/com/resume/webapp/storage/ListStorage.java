@@ -10,7 +10,7 @@ public class ListStorage extends AbstractStorage {
     private final List<Resume> storage = new ArrayList<>();
 
     @Override
-    protected Object getSearchKey(Object searchKey) {
+    protected Object getSearchKey(String searchKey) {
         for (int i = 0; i < storage.size(); i++) {
             Resume resume = storage.get(i);
             if (resume.getUuid().equals(searchKey)) {
@@ -42,7 +42,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected void doDelete(Object searchKey) {
-        int index = (int) getSearchKey(searchKey);
+        int index = (int) getSearchKey((String) searchKey);
         storage.remove(index);
     }
 
