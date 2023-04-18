@@ -1,6 +1,8 @@
 package com.resume.webapp.storage;
 
-class SortedArrayStorageTest extends AbstractStorageTest{
+import static org.junit.jupiter.api.Assertions.*;
+
+public class SortedArrayStorageTest extends AbstractArrayStorageTest{
 
     public SortedArrayStorageTest() {
         super(new SortedArrayStorage());

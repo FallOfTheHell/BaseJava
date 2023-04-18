@@ -27,7 +27,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     public void doDelete(Object searchKey){
-        removeResume((Integer) getSearchKey((String) searchKey));
+        removeResume(searchKey);
         size--;
     }
 
@@ -52,10 +52,10 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     @Override
     protected boolean isExist(Object searchKey) {
         int index = (int) searchKey;
-        return index > 0;
+        return index >= 0;
     }
 
     protected abstract Resume insertResume(int index, Resume resume);
 
-    protected abstract void removeResume(int index);
+    protected abstract void removeResume(Object index);
 }

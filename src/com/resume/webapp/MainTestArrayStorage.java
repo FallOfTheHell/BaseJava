@@ -7,7 +7,6 @@ import com.resume.webapp.storage.Storage;
 /**
  * Test for your com.resume.webapp.storage.ArrayStorage implementation
  */
-
 public class MainTestArrayStorage {
     static final Storage ARRAY_STORAGE = new ListStorage();
 
@@ -24,6 +23,7 @@ public class MainTestArrayStorage {
         System.out.println("Size: " + ARRAY_STORAGE.size());
 
         System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
+
         ARRAY_STORAGE.update(r1);
         printAll();
         ARRAY_STORAGE.delete(r1.getUuid());

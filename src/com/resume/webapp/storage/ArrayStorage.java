@@ -4,6 +4,7 @@ import com.resume.webapp.model.Resume;
 
 public class ArrayStorage extends AbstractArrayStorage {
 
+    @Override
     protected Object getSearchKey(String searchKey) {
         for (int i = 0; i < size; i++) {
             if (searchKey.equals(storage[i].getUuid())) {
@@ -20,8 +21,8 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void removeResume(int index) {
-        storage[index] = storage[size - 1];
+    protected void removeResume(Object index) {
+        storage[(int) index] = storage[size - 1];
         storage[size - 1] = null;
     }
 }

@@ -22,7 +22,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected boolean isExist(Object searchKey) {
-        return (int) searchKey > 0;
+        return (int) searchKey >= 0;
     }
 
     @Override
@@ -42,8 +42,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected void doDelete(Object searchKey) {
-        int index = (int) getSearchKey((String) searchKey);
-        storage.remove(index);
+        storage.remove(doGet(searchKey));
     }
 
     @Override
