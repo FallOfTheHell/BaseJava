@@ -37,8 +37,8 @@ public class MainArray {
                     System.out.println(ARRAY_STORAGE.size());
                     break;
                 case "save":
-                    resume = new Resume();
-                    ARRAY_STORAGE.save(resume);
+                    //resume = new Resume();
+                    //ARRAY_STORAGE.save(resume);
                     printAll();
                     break;
                 case "delete":
@@ -62,15 +62,15 @@ public class MainArray {
     }
 
     static void printAll() {
-        Resume[] all = ARRAY_STORAGE.getAll();
-        System.out.println("----------------------------");
-        if (all.length == 0) {
-            System.out.println("Empty");
-        } else {
-            for (Resume resume : all) {
-                System.out.println(resume);
-            }
-        }
+//        Resume[] all = ARRAY_STORAGE.getAllSorted();
+//        System.out.println("----------------------------");
+//        if (all.length == 0) {
+//            System.out.println("Empty");
+//        } else {
+//            for (Resume resume : all) {
+//                System.out.println(resume);
+//            }
+//        }
         System.out.println("----------------------------");
     }
 }

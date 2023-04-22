@@ -4,6 +4,7 @@ import com.resume.webapp.exception.StorageException;
 import com.resume.webapp.model.Resume;
 
 import java.util.Arrays;
+import java.util.List;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
 
@@ -36,8 +37,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size = 0;
     }
 
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
+    @Override
+    public List<Resume> doGetAll() {
+        return List.of(Arrays.copyOf(storage, size));
     }
 
     @Override
@@ -58,4 +60,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected abstract Resume insertResume(int index, Resume resume);
 
     protected abstract void removeResume(Object index);
+
+    protected abstract Integer getSearchKey(String searchKey);
 }

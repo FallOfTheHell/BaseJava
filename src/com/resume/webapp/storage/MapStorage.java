@@ -2,7 +2,9 @@ package com.resume.webapp.storage;
 
 import com.resume.webapp.model.Resume;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MapStorage extends AbstractStorage {
@@ -10,48 +12,48 @@ public class MapStorage extends AbstractStorage {
     private final Map<String, Resume> storage = new HashMap<>();
 
     @Override
-    protected boolean isExist(Object searchKey) {
-        return storage.containsKey(searchKey);
+    protected boolean isExist(Object key) {
+        return storage.containsKey(getSearchKey(key.toString()).toString());
     }
 
     @Override
-    protected Resume doGet(Object searchKey) {
-        return storage.get(searchKey);
+    protected Resume doGet(Object key) {
+        return storage.get(getSearchKey(key.toString()).toString());
     }
 
     @Override
-    protected void doSave(Object key,Resume resume) {
-        storage.put(resume.getUuid(), resume);
+    protected void doSave(Object key, Resume resume) {
+        storage.put(getSearchKey(key.toString()).toString(), resume);
     }
 
     @Override
-    protected void doUpdate(Object searchKey, Resume resume) {
-        storage.put(searchKey.toString(), resume);
+    protected void doUpdate(Object key, Resume resume) {
+        storage.put(getSearchKey(key.toString()).toString(), resume);
     }
 
     @Override
-    protected void doDelete(Object searchKey) {
-        storage.remove(searchKey);
+    protected void doDelete(Object key) {
+        storage.remove(getSearchKey(key.toString()).toString());
     }
 
     @Override
-    protected Object getSearchKey(String searchKey) {
+    protected Object getSearchKey(String uuid) {
         for (Map.Entry<String, Resume> entry: storage.entrySet()) {
-            if (entry.getValue().getUuid().equals(searchKey)){
+            if (entry.getValue().getUuid().equals(uuid)){
                 return entry.getKey();
             }
         }
-        return searchKey;
+        return uuid;
+    }
+
+    @Override
+    protected List<Resume> doGetAll() {
+        return new ArrayList<>(storage.values());
     }
 
     @Override
     public void clear() {
         storage.clear();
-    }
-
-    @Override
-    public Resume[] getAll() {
-        return storage.values().toArray(new Resume[size()]);
     }
 
     @Override

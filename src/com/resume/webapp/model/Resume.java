@@ -1,49 +1,63 @@
 package com.resume.webapp.model;
 
-import java.util.UUID;
 
-/**
- * Initial resume class
- */
+import java.util.Objects;
+
 public class Resume implements Comparable<Resume> {
 
-    // Unique identifier
+//    public static class SortResume implements Comparator<Resume> {
+//
+//        @Override
+//        public int compare(Resume o1, Resume o2) {
+//            return o1.getFillName().compareTo(o2.getFillName());
+//        }
+//    }
+
     private final String uuid;
 
-    public Resume() {
-        this(UUID.randomUUID().toString());
-    }
+    private final String fillName;
 
-    public Resume(String uuid) {
+//    public Resume(String uuid) {
+//        this.uuid = uuid;
+//    }
+
+    public Resume(String uuid, String fillName) {
         this.uuid = uuid;
+        this.fillName = fillName;
     }
 
     public String getUuid() {
         return uuid;
     }
 
+    public String getFillName() {
+        return fillName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Resume resume = (Resume) o;
-
-        return uuid.equals(resume.uuid);
+        return Objects.equals(uuid, resume.uuid) && Objects.equals(fillName, resume.fillName);
     }
 
     @Override
     public int hashCode() {
-        return uuid.hashCode();
+        return Objects.hash(uuid, fillName);
     }
 
     @Override
     public String toString() {
-        return uuid;
+        return "uuid: " + uuid + ", FillName: " + fillName;
     }
 
     @Override
     public int compareTo(Resume o) {
-        return uuid.compareTo(o.uuid);
+        int result = this.fillName.compareTo(o.fillName);
+        if (result == 0) {
+            result = this.uuid.compareTo(o.uuid);
+        }
+        return result;
     }
 }

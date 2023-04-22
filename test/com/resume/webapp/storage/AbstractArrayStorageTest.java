@@ -14,7 +14,6 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest{
     private static final int STORAGE_LIMIT = 10000;
 
     public AbstractArrayStorageTest(Storage storage) {
-        //TODO: Тут нужно что-то передавать в конструктор или так и нужно оставить?
         super(storage);
     }
 
@@ -23,7 +22,7 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest{
         storage.clear();
         try {
             for (int i = 0; i <= STORAGE_LIMIT; i++) {
-                storage.save(new Resume("uuid_" + i));
+                storage.save(new Resume("uuid_" + i, "uuid_" + i));
             }
             Assertions.fail("Переполнение произошло раньше времени");
         } catch (StorageException e) {
@@ -31,7 +30,7 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest{
         }
 
         assertThrows(StorageException.class, () -> {
-            storage.save(new Resume(UUID_OVERFLOW));
+            storage.save(new Resume(UUID_OVERFLOW, UUID_OVERFLOW));
         });
     }
 }
