@@ -2,24 +2,17 @@ package com.resume.webapp.model;
 
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class Resume implements Comparable<Resume> {
-
-//    public static class SortResume implements Comparator<Resume> {
-//
-//        @Override
-//        public int compare(Resume o1, Resume o2) {
-//            return o1.getFillName().compareTo(o2.getFillName());
-//        }
-//    }
 
     private final String uuid;
 
     private final String fillName;
 
-//    public Resume(String uuid) {
-//        this.uuid = uuid;
-//    }
+    public Resume(String fillName) {
+        this(fillName, UUID.randomUUID().toString());
+    }
 
     public Resume(String uuid, String fillName) {
         this.uuid = uuid;

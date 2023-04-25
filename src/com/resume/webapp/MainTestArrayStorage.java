@@ -1,14 +1,14 @@
 package com.resume.webapp;
 
 import com.resume.webapp.model.Resume;
-import com.resume.webapp.storage.ListStorage;
+import com.resume.webapp.storage.MapResumeStorage;
 import com.resume.webapp.storage.Storage;
 
 /**
  * Test for your com.resume.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    static final Storage ARRAY_STORAGE = new ListStorage();
+    static final Storage ARRAY_STORAGE = new MapResumeStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume("uuid1", "uuid1");
@@ -19,6 +19,7 @@ public class MainTestArrayStorage {
         ARRAY_STORAGE.save(r2);
         ARRAY_STORAGE.save(r3);
 
+        printAll();
         System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
         System.out.println("Size: " + ARRAY_STORAGE.size());
 

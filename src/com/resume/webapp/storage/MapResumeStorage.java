@@ -2,48 +2,41 @@ package com.resume.webapp.storage;
 
 import com.resume.webapp.model.Resume;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class MapFillNameStorage extends AbstractStorage{
+public class MapResumeStorage extends AbstractStorage {
 
     private final Map<String, Resume> storage = new HashMap<>();
 
     @Override
     protected boolean isExist(Object key) {
-        return storage.containsKey(getSearchKey(key.toString()).toString());
+        return storage.containsKey(key);
     }
 
     @Override
     protected Resume doGet(Object key) {
-        return storage.get(getSearchKey(key.toString()).toString());
+        return storage.get(key);
     }
 
     @Override
     protected void doSave(Object key, Resume resume) {
-        storage.put(getSearchKey(key.toString()).toString(), resume);
+        storage.put(resume.getUuid(), resume);
     }
 
     @Override
     protected void doUpdate(Object key, Resume resume) {
-        storage.put(getSearchKey(key.toString()).toString(), resume);
+        storage.replace(resume.getUuid(), resume);
     }
 
     @Override
     protected void doDelete(Object key) {
-        storage.remove(getSearchKey(key.toString()).toString());
+        storage.remove(key);
     }
 
     @Override
     protected Object getSearchKey(String fillName) {
-        for (Map.Entry<String, Resume> entry: storage.entrySet()) {
-            if (entry.getValue().getUuid().equals(fillName)){
-                return entry.getValue().getFillName();
-            }
-        }
-        return fillName;
+        Resume resume = new Resume(fillName);
+        return storage.get(resume.getUuid());
     }
 
     @Override
