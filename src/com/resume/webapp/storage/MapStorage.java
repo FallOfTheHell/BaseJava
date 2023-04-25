@@ -2,10 +2,7 @@ package com.resume.webapp.storage;
 
 import com.resume.webapp.model.Resume;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MapStorage extends AbstractStorage {
 
@@ -38,6 +35,13 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected Object getSearchKey(String uuid) {
+        Iterator<Map.Entry<String, Resume>> entries = storage.entrySet().iterator();
+        while (entries.hasNext()) {
+            Map.Entry<String, Resume> entry = entries.next();
+            if (entry.getValue().getUuid().equals(uuid)) {
+                return entry.getKey();
+            }
+        }
         return storage.get(uuid);
     }
 
