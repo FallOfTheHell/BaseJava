@@ -35,14 +35,12 @@ public class MapResumeStorage extends AbstractStorage {
 
     @Override
     protected Object getSearchKey(String fillName) {
-//        Iterator<Map.Entry<String, Resume>> entries = storage.entrySet().iterator();
-//        while (entries.hasNext()) {
-//            Map.Entry<String, Resume> entry = entries.next();
-//            if (entry.getValue().getFillName().equals(fillName)) {
-//                return entry.getKey();
-//            }
-//        }
-//        return storage.get(fillName);
+        for (String key: storage.keySet()) {
+            if (key.equals(fillName)){
+                return fillName;
+            }
+        }
+        return storage.get(fillName);
     }
 
     @Override
