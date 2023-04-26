@@ -10,12 +10,12 @@ public class MapResumeStorage extends AbstractStorage {
 
     @Override
     protected boolean isExist(Object key) {
-        return key == null;
+        return key != null;
     }
 
     @Override
     protected Resume doGet(Object key) {
-        return storage.get(key);
+        return (Resume) key;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class MapResumeStorage extends AbstractStorage {
 
     @Override
     protected void doDelete(Object key) {
-        storage.remove(key);
+        storage.remove(((Resume) key).getUuid());
     }
 
     @Override
