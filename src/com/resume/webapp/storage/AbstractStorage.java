@@ -12,6 +12,8 @@ public abstract class AbstractStorage implements Storage {
     private final Comparator<Resume> COMPARATOR = Comparator.comparing(Resume::getFillName)
             .thenComparing(Resume::getUuid);
 
+    private List<Resume> cachedResumes = null;
+
     public final Resume get(String uuid) {
         return doGet(getExistingSearchKey(uuid));
     }
@@ -30,9 +32,10 @@ public abstract class AbstractStorage implements Storage {
         doDelete(getExistingSearchKey(uuid));
     }
 
-    public final List<Resume> getAllSorted(){
-        doGetAll().sort(COMPARATOR);
-        return doGetAll();
+    public final List<Resume> getAllSorted() {
+        cachedResumes = doGetAll();
+        cachedResumes.sort(COMPARATOR);
+        return cachedResumes;
     }
 
     protected Object getExistingSearchKey(String uuid) {
@@ -57,7 +60,7 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract Resume doGet(Object searchKey);
 
-    protected abstract void doSave(Object key,Resume resume);
+    protected abstract void doSave(Object key, Resume resume);
 
     protected abstract void doUpdate(Object searchKey, Resume resume);
 

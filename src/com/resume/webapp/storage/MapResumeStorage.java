@@ -10,7 +10,7 @@ public class MapResumeStorage extends AbstractStorage {
 
     @Override
     protected boolean isExist(Object key) {
-        return storage.containsKey(key);
+        return key == null;
     }
 
     @Override
@@ -34,13 +34,8 @@ public class MapResumeStorage extends AbstractStorage {
     }
 
     @Override
-    protected Object getSearchKey(String fillName) {
-        for (String key: storage.keySet()) {
-            if (key.equals(fillName)){
-                return fillName;
-            }
-        }
-        return storage.get(fillName);
+    protected Object getSearchKey(String uuid) {
+        return storage.get(uuid);
     }
 
     @Override
