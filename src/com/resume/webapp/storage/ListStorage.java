@@ -5,12 +5,12 @@ import com.resume.webapp.model.Resume;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListStorage extends AbstractStorage {
+public class ListStorage extends AbstractStorage<Integer> {
 
     private final List<Resume> storage = new ArrayList<>();
 
     @Override
-    protected Object getSearchKey(String searchKey) {
+    protected Integer getSearchKey(String searchKey) {
         for (int i = 0; i < storage.size(); i++) {
             Resume resume = storage.get(i);
             if (resume.getUuid().equals(searchKey)) {
@@ -21,28 +21,28 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExist(Object searchKey) {
-        return (int) searchKey >= 0;
+    protected boolean isExist(Integer searchKey) {
+        return searchKey >= 0;
     }
 
     @Override
-    protected Resume doGet(Object searchKey) {
-        return storage.get((Integer) searchKey);
+    protected Resume doGet(Integer searchKey) {
+        return storage.get(searchKey);
     }
 
     @Override
-    protected void doSave(Object key, Resume resume) {
+    protected void doSave(Integer key, Resume resume) {
         storage.add(resume);
     }
 
     @Override
-    protected void doUpdate(Object searchKey, Resume resume) {
-        storage.set((Integer) searchKey, resume);
+    protected void doUpdate(Integer searchKey, Resume resume) {
+        storage.set(searchKey, resume);
     }
 
     @Override
-    protected void doDelete(Object searchKey) {
-        storage.remove(doGet(searchKey));
+    protected void doDelete(Integer searchKey) {
+        storage.remove((int) searchKey);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     public List<Resume> doGetAll() {
-        return storage.stream().toList();
+        return new ArrayList<>(storage);
     }
 
     @Override

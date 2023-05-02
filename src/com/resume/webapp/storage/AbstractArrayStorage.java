@@ -3,10 +3,11 @@ package com.resume.webapp.storage;
 import com.resume.webapp.exception.StorageException;
 import com.resume.webapp.model.Resume;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
 
     protected static final int STORAGE_LIMIT = 10000;
 
@@ -15,19 +16,19 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected int size;
 
     @Override
-    protected Resume doGet(Object searchKey) {
-        return storage[(int) searchKey];
+    protected Resume doGet(Integer searchKey) {
+        return storage[searchKey];
     }
 
-    public void doSave(Object key, Resume resume) {
+    public void doSave(Integer key, Resume resume) {
         if (size >= storage.length) {
             throw new StorageException("Storage overflow", resume.getUuid());
         }
-        insertResume((Integer) key, resume);
+        insertResume(key, resume);
         size++;
     }
 
-    public void doDelete(Object searchKey){
+    public void doDelete(Integer searchKey){
         removeResume(searchKey);
         size--;
     }
@@ -39,12 +40,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     public List<Resume> doGetAll() {
-        return List.of(Arrays.copyOf(storage, size));
+        return new ArrayList<>(Arrays.asList(Arrays.copyOf(storage, size)));
     }
 
     @Override
-    protected void doUpdate(Object searchKey, Resume resume) {
-        storage[(int) searchKey] = resume;
+    protected void doUpdate(Integer searchKey, Resume resume) {
+        storage[searchKey] = resume;
     }
 
     public int size() {
@@ -52,14 +53,14 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExist(Object searchKey) {
-        int index = (int) searchKey;
+    protected boolean isExist(Integer searchKey) {
+        int index = searchKey;
         return index >= 0;
     }
 
-    protected abstract Resume insertResume(int index, Resume resume);
+    protected abstract Resume insertResume(Integer index, Resume resume);
 
-    protected abstract void removeResume(Object index);
+    protected abstract void removeResume(Integer index);
 
     protected abstract Integer getSearchKey(String searchKey);
 }

@@ -4,45 +4,38 @@ import com.resume.webapp.model.Resume;
 
 import java.util.*;
 
-public class MapStorage extends AbstractStorage {
+public class MapStorage extends AbstractStorage<String> {
 
     private final Map<String, Resume> storage = new HashMap<>();
 
     @Override
-    protected boolean isExist(Object key) {
+    protected boolean isExist(String key) {
         return storage.containsKey(key);
     }
 
     @Override
-    protected Resume doGet(Object key) {
+    protected Resume doGet(String key) {
         return storage.get(key);
     }
 
     @Override
-    protected void doSave(Object key, Resume resume) {
-        storage.put(resume.getUuid(), resume);
+    protected void doSave(String key, Resume resume) {
+        storage.put(key, resume);
     }
 
     @Override
-    protected void doUpdate(Object key, Resume resume) {
-        storage.put(resume.getUuid(), resume);
+    protected void doUpdate(String key, Resume resume) {
+        storage.put(key, resume);
     }
 
     @Override
-    protected void doDelete(Object key) {
+    protected void doDelete(String key) {
         storage.remove(key);
     }
 
     @Override
-    protected Object getSearchKey(String uuid) {
-        Iterator<Map.Entry<String, Resume>> entries = storage.entrySet().iterator();
-        while (entries.hasNext()) {
-            Map.Entry<String, Resume> entry = entries.next();
-            if (entry.getValue().getUuid().equals(uuid)) {
-                return entry.getKey();
-            }
-        }
-        return storage.get(uuid);
+    protected String getSearchKey(String uuid) {
+        return uuid;
     }
 
     @Override

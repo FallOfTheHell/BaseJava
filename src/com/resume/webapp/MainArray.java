@@ -7,6 +7,7 @@ import com.resume.webapp.storage.Storage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 /**
  * Interactive test for com.resume.webapp.storage.ArrayStorage implementation
@@ -25,52 +26,50 @@ public class MainArray {
                 System.out.println("Неверная команда.");
                 continue;
             }
-            String uuid = null;
+            String param = null;
             if (params.length == 2) {
-                uuid = params[1].intern();
+                param = params[1].intern();
             }
             switch (params[0]) {
-                case "list":
+                case "list" -> printAll();
+                case "size" -> System.out.println(ARRAY_STORAGE.size());
+                case "save" -> {
+                    resume = new Resume(param);
+                    ARRAY_STORAGE.save(resume);
                     printAll();
-                    break;
-                case "size":
-                    System.out.println(ARRAY_STORAGE.size());
-                    break;
-                case "save":
-                    //resume = new Resume();
-                    //ARRAY_STORAGE.save(resume);
+                }
+                case "update" -> {
+                    resume = new Resume(param, params[2]);
+                    ARRAY_STORAGE.update(resume);
                     printAll();
-                    break;
-                case "delete":
-                    ARRAY_STORAGE.delete(uuid);
+                }
+                case "delete" -> {
+                    ARRAY_STORAGE.delete(param);
                     printAll();
-                    break;
-                case "get":
-                    System.out.println(ARRAY_STORAGE.get(uuid));
-                    break;
-                case "clear":
+                }
+                case "get" -> System.out.println(ARRAY_STORAGE.get(param));
+                case "clear" -> {
                     ARRAY_STORAGE.clear();
                     printAll();
-                    break;
-                case "exit":
+                }
+                case "exit" -> {
                     return;
-                default:
-                    System.out.println("Неверная команда.");
-                    break;
+                }
+                default -> System.out.println("Неверная команда.");
             }
         }
     }
 
     static void printAll() {
-//        Resume[] all = ARRAY_STORAGE.getAllSorted();
-//        System.out.println("----------------------------");
-//        if (all.length == 0) {
-//            System.out.println("Empty");
-//        } else {
-//            for (Resume resume : all) {
-//                System.out.println(resume);
-//            }
-//        }
+        List<Resume> all = ARRAY_STORAGE.getAllSorted();
+        System.out.println("----------------------------");
+        if (all.size() == 0) {
+            System.out.println("Empty");
+        } else {
+            for (Resume resume : all) {
+                System.out.println(resume);
+            }
+        }
         System.out.println("----------------------------");
     }
 }
