@@ -3,15 +3,13 @@ package com.resume.webapp.model;
 import java.util.List;
 import java.util.Objects;
 
-public class Company extends CompanySection {
+public class Company {
 
     private final List<Period> periodList;
     private final String company;
     private final String website;
 
-    public Company(String fullName, SectionType sectionType, List<Company> companyList,
-                   List<Period> periodList, String company, String website) {
-        super(fullName, sectionType, companyList);
+    public Company(List<Period> periodList, String company, String website) {
         this.periodList = periodList;
         this.company = company;
         this.website = website;

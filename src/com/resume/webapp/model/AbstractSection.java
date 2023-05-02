@@ -5,6 +5,7 @@ import java.util.Objects;
 public abstract class AbstractSection extends Resume {
 
     private final SectionType sectionType;
+
     public AbstractSection(String fullName, SectionType sectionType) {
         super(fullName);
         this.sectionType = sectionType;

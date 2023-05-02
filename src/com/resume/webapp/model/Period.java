@@ -1,36 +1,31 @@
 package com.resume.webapp.model;
 
-import javax.xml.crypto.Data;
-import java.util.List;
+import java.util.Date;
 import java.util.Objects;
 
-public class Period extends Company {
+public class Period {
 
-    private final String description;
     private final String title;
-    private final Data startDate;
-    private final Data endData;
+    private final String description;
+    private final Date startDate;
+    private final Date endData;
 
-    public Period(String fullName, SectionType sectionType, List<Company> companyList,
-                  List<Period> periodList, String company, String website, String description,
-                  String title, Data startDate, Data endData) {
-        super(fullName, sectionType, companyList, periodList, company, website);
-        this.description = description;
+    public Period(String title, String description, Date startDate, Date endData) {
         this.title = title;
+        this.description = description;
         this.startDate = startDate;
         this.endData = endData;
     }
-
 
     public String getDescription() {
         return description;
     }
 
-    public Data getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public Data getEndData() {
+    public Date getEndData() {
         return endData;
     }
 

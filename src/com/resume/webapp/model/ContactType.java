@@ -3,15 +3,15 @@ package com.resume.webapp.model;
 import java.util.List;
 import java.util.Objects;
 
-public class ContactType extends Resume{
+public class ContactType extends Resume {
     private final Integer numberPhone;
     private final String skype;
     private final String mail;
     private final List<String> usefulLinks;
 
-    public ContactType(String uuid, String fillName, Integer numberPhone,
+    public ContactType(String fillName, Integer numberPhone,
                        String skype, String mail, List<String> usefulLinks) {
-        super(uuid, fillName);
+        super(fillName);
         this.numberPhone = numberPhone;
         this.skype = skype;
         this.mail = mail;
