@@ -7,8 +7,7 @@ public class CompanySection extends AbstractSection {
 
     private final List<Company> companyList;
 
-    public CompanySection(String fullName, SectionType sectionType, List<Company> companyList) {
-        super(fullName, sectionType);
+    public CompanySection(List<Company> companyList) {
         this.companyList = companyList;
     }
 

@@ -1,6 +1,7 @@
 package com.resume.webapp.model;
 
 
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
@@ -11,10 +12,13 @@ public class Resume implements Comparable<Resume> {
 
     private final String fullName;
 
-    private Map<ContactType, String> contacts;
+    private final EnumMap<ContactType, String> contacts;
 
-    private Map<SectionType, AbstractSection> sections;
+    private final EnumMap<SectionType, AbstractSection> sections;
 
+    //TODO: Мне нужно было contacts и sections добавлять в 2 конструктора в качестве аргумента?
+    // Если да, то все остальное что писали, отвалится.
+    // Чтобы все не отвалилось я сделал так, это будет правильно или нет?
     public Resume(String fullName) {
         this(fullName, UUID.randomUUID().toString());
     }
@@ -22,6 +26,8 @@ public class Resume implements Comparable<Resume> {
     public Resume(String uuid, String fullName) {
         Objects.requireNonNull(uuid, "uuid must not be null");
         Objects.requireNonNull(fullName, "fullName must not be null");
+        this.contacts = new EnumMap<>(ContactType.class);
+        this.sections = new EnumMap<>(SectionType.class);
         this.uuid = uuid;
         this.fullName = fullName;
     }

@@ -6,11 +6,9 @@ public class TextSection extends AbstractSection {
 
     private final String text;
 
-    public TextSection(String fullName, SectionType sectionType, String text) {
-        super(fullName, sectionType);
+    public TextSection(String text) {
         this.text = text;
     }
-
 
     public String getText() {
         return text;

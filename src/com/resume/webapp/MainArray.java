@@ -34,13 +34,13 @@ public class MainArray {
                 case "list" -> printAll();
                 case "size" -> System.out.println(ARRAY_STORAGE.size());
                 case "save" -> {
-                    resume = new Resume(param);
-                    ARRAY_STORAGE.save(resume);
+                    //resume = new Resume(param, contacts, sections);
+                    //ARRAY_STORAGE.save(resume);
                     printAll();
                 }
                 case "update" -> {
-                    resume = new Resume(param, params[2]);
-                    ARRAY_STORAGE.update(resume);
+                    //resume = new Resume(param, params[2], contacts);
+                    //ARRAY_STORAGE.update(resume);
                     printAll();
                 }
                 case "delete" -> {

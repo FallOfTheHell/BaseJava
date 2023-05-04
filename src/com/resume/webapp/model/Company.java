@@ -6,12 +6,12 @@ import java.util.Objects;
 public class Company {
 
     private final List<Period> periodList;
-    private final String company;
+    private final String name;
     private final String website;
 
-    public Company(List<Period> periodList, String company, String website) {
+    public Company(List<Period> periodList, String name, String website) {
         this.periodList = periodList;
-        this.company = company;
+        this.name = name;
         this.website = website;
     }
 
@@ -22,13 +22,13 @@ public class Company {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Company company1 = (Company) o;
-        return Objects.equals(periodList, company1.periodList) && Objects.equals(company, company1.company)
+        return Objects.equals(periodList, company1.periodList) && Objects.equals(name, company1.name)
                 && Objects.equals(website, company1.website);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), periodList, company, website);
+        return Objects.hash(super.hashCode(), periodList, name, website);
     }
 
 
@@ -36,8 +36,8 @@ public class Company {
         return periodList;
     }
 
-    public String getCompany() {
-        return company;
+    public String getName() {
+        return name;
     }
 
     public String getWebsite() {
@@ -48,7 +48,7 @@ public class Company {
     public String toString() {
         return "Company{" +
                 "periodList=" + periodList +
-                ", company='" + company + '\'' +
+                ", company='" + name + '\'' +
                 ", website='" + website + '\'' +
                 '}';
     }

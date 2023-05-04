@@ -5,16 +5,14 @@ import java.util.Objects;
 
 public class ListSection extends AbstractSection {
 
-    private final List<String> stringList;
+    private final List<String> list;
 
-    public ListSection(String fullName, SectionType sectionType, List<String> stringList) {
-        super(fullName, sectionType);
-        this.stringList = stringList;
+    public ListSection(List<String> list) {
+        this.list = list;
     }
 
-
-    public List<String> getStringList() {
-        return stringList;
+    public List<String> getList() {
+        return list;
     }
 
     @Override
@@ -23,18 +21,18 @@ public class ListSection extends AbstractSection {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         ListSection that = (ListSection) o;
-        return Objects.equals(stringList, that.stringList);
+        return Objects.equals(list, that.list);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), stringList);
+        return Objects.hash(super.hashCode(), list);
     }
 
     @Override
     public String toString() {
         return "ListSection{" +
-                "stringList=" + stringList +
+                "stringList=" + list +
                 '}';
     }
 }

@@ -1,32 +1,32 @@
 package com.resume.webapp.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Period {
 
     private final String title;
     private final String description;
-    private final Date startDate;
-    private final Date endData;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
 
-    public Period(String title, String description, Date startDate, Date endData) {
+    public Period(String title, String description, LocalDate startDate, LocalDate endDate) {
         this.title = title;
         this.description = description;
         this.startDate = startDate;
-        this.endData = endData;
+        this.endDate = endDate;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public Date getEndData() {
-        return endData;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
     public String getTitle() {
@@ -40,12 +40,12 @@ public class Period {
         if (!super.equals(o)) return false;
         Period period = (Period) o;
         return Objects.equals(description, period.description) && Objects.equals(title, period.title)
-                && Objects.equals(startDate, period.startDate) && Objects.equals(endData, period.endData);
+                && Objects.equals(startDate, period.startDate) && Objects.equals(endDate, period.endDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), description, title, startDate, endData);
+        return Objects.hash(super.hashCode(), description, title, startDate, endDate);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class Period {
                 "description='" + description + '\'' +
                 ", title='" + title + '\'' +
                 ", startDate=" + startDate +
-                ", endData=" + endData +
+                ", endData=" + endDate +
                 '}';
     }
 }
