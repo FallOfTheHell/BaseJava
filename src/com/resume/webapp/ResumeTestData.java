@@ -4,17 +4,11 @@ import com.resume.webapp.model.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.List;
 
 public class ResumeTestData {
 
     public static void main(String[] args) {
-        EnumMap<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-        contacts.put(ContactType.PHONE_NUMBER, "+79137114042");
-        contacts.put(ContactType.EMAIL, "gleb.epifancev@mail.ru");
-        contacts.put(ContactType.SKYPE, null);
-        contacts.put(ContactType.USEFUL_LINKS, null);
 
         LocalDate startDateCompany = LocalDate.of(2023, 1, 13);
         LocalDate endDateCompany = LocalDate.of(2024, 1, 13);
@@ -24,7 +18,6 @@ public class ResumeTestData {
         periodList.add(new Period("Middle", "Делал еще больше", startDateCompany, endDateCompany));
         List<Company> companyList = List.of(new Company(periodList, "OOO 'Компания'", "что-то да есть"));
         CompanySection companySection = new CompanySection(companyList);
-        System.out.println(companySection);
 
         LocalDate startDateUniversity = LocalDate.of(2019, 9, 1);
         LocalDate endDateUniversity = LocalDate.of(2024, 5, 25);
@@ -48,16 +41,20 @@ public class ResumeTestData {
         String personalQualities = "Инициативность, педантичность, скрупулезный";
         TextSection personalSection = new TextSection(personalQualities);
 
-        EnumMap<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
-        sections.put(SectionType.EXPERIENCE, companySection);
-        sections.put(SectionType.ACHIEVEMENT, achievements);
-        sections.put(SectionType.QUALIFICATIONS, qualification);
-        sections.put(SectionType.EDUCATION, universitySection);
-        sections.put(SectionType.OBJECTIVE, positionSection);
-        sections.put(SectionType.PERSONAL, personalSection);
+        Resume resume = new Resume("uuid_1","Gleb Epifancev");
 
-        Resume resume = new Resume("Gleb Epifancev");
-        resume.getContacts();
+        resume.setContacts(ContactType.PHONE_NUMBER, "+79137114042");
+        resume.setContacts(ContactType.EMAIL, "gleb.epifancev@mail.ru");
+        resume.setContacts(ContactType.SKYPE, null);
+        resume.setContacts(ContactType.USEFUL_LINKS, null);
+
+        resume.setSection(SectionType.EXPERIENCE, companySection);
+        resume.setSection(SectionType.ACHIEVEMENT, achievements);
+        resume.setSection(SectionType.QUALIFICATIONS, qualification);
+        resume.setSection(SectionType.EDUCATION, universitySection);
+        resume.setSection(SectionType.OBJECTIVE, positionSection);
+        resume.setSection(SectionType.PERSONAL, personalSection);
+
         System.out.println(resume);
     }
 }

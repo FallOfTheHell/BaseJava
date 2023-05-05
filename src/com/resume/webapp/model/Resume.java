@@ -12,13 +12,10 @@ public class Resume implements Comparable<Resume> {
 
     private final String fullName;
 
-    private final EnumMap<ContactType, String> contacts;
+    private final Map<ContactType, String> contacts;
 
-    private final EnumMap<SectionType, AbstractSection> sections;
+    private final Map<SectionType, AbstractSection> sections;
 
-    //TODO: Мне нужно было contacts и sections добавлять в 2 конструктора в качестве аргумента?
-    // Если да, то все остальное что писали, отвалится.
-    // Чтобы все не отвалилось я сделал так, это будет правильно или нет?
     public Resume(String fullName) {
         this(fullName, UUID.randomUUID().toString());
     }
@@ -26,10 +23,10 @@ public class Resume implements Comparable<Resume> {
     public Resume(String uuid, String fullName) {
         Objects.requireNonNull(uuid, "uuid must not be null");
         Objects.requireNonNull(fullName, "fullName must not be null");
-        this.contacts = new EnumMap<>(ContactType.class);
-        this.sections = new EnumMap<>(SectionType.class);
         this.uuid = uuid;
         this.fullName = fullName;
+        this.contacts = new EnumMap<>(ContactType.class);
+        this.sections = new EnumMap<>(SectionType.class);
     }
 
     public String getUuid() {
@@ -48,6 +45,14 @@ public class Resume implements Comparable<Resume> {
         return sections;
     }
 
+    public void setContacts(ContactType type, String value) {
+        contacts.put(type, value);
+    }
+
+    public void setSection(SectionType type, AbstractSection section) {
+        sections.put(type, section);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -64,7 +69,8 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public String toString() {
-        return "uuid-" + uuid + ", FillName: " + fullName;
+        return "uuid-" + uuid + ", FillName: " + fullName + "\nКонтактная информация: " + contacts
+                + "\nОстальная информация: " + sections;
     }
 
     @Override

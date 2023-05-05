@@ -5,15 +5,14 @@ import java.util.Objects;
 
 public class CompanySection extends AbstractSection {
 
-    private final List<Company> companyList;
+    private final List<Company> companies;
 
-    public CompanySection(List<Company> companyList) {
-        this.companyList = companyList;
+    public CompanySection(List<Company> companies) {
+        this.companies = companies;
     }
 
-
-    public List<Company> getCompanyList() {
-        return companyList;
+    public List<Company> getCompanies() {
+        return companies;
     }
 
     @Override
@@ -22,16 +21,16 @@ public class CompanySection extends AbstractSection {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         CompanySection that = (CompanySection) o;
-        return Objects.equals(companyList, that.companyList);
+        return Objects.equals(companies, that.companies);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), companyList);
+        return Objects.hash(super.hashCode(), companies);
     }
 
     @Override
     public String toString() {
-        return "Список компаний: " + companyList + ";";
+        return "Список компаний: " + companies + ";";
     }
 }
