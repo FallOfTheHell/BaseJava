@@ -31,8 +31,6 @@ public class ListSection extends AbstractSection {
 
     @Override
     public String toString() {
-        return "ListSection{" +
-                "stringList=" + list +
-                '}';
+        return "stringList=" + list + ';';
     }
 }

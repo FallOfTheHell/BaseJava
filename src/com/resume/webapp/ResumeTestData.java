@@ -18,10 +18,13 @@ public class ResumeTestData {
 
         LocalDate startDateCompany = LocalDate.of(2023, 1, 13);
         LocalDate endDateCompany = LocalDate.of(2024, 1, 13);
-        List<Period> periodList = List.of(new Period("Junior", "Делал то и то и это"
+        List<Period> periodList = new ArrayList<>();
+        periodList.add(new Period("Junior", "Делал то и то и это"
                 , startDateCompany, endDateCompany));
-        List<Company> companyList = List.of(new Company(periodList, "Крутая компания", "что-то да есть"));
+        periodList.add(new Period("Middle", "Делал еще больше", startDateCompany, endDateCompany));
+        List<Company> companyList = List.of(new Company(periodList, "OOO 'Компания'", "что-то да есть"));
         CompanySection companySection = new CompanySection(companyList);
+        System.out.println(companySection);
 
         LocalDate startDateUniversity = LocalDate.of(2019, 9, 1);
         LocalDate endDateUniversity = LocalDate.of(2024, 5, 25);

@@ -50,11 +50,9 @@ public class Period {
 
     @Override
     public String toString() {
-        return "Period{" +
-                "description='" + description + '\'' +
-                ", title='" + title + '\'' +
-                ", startDate=" + startDate +
-                ", endData=" + endDate +
-                '}';
+        return  "Описание: " + description +
+                "; Заголовок: " + title +
+                "; Начальная дата: " + startDate +
+                "; Конечная дата: " + endDate + ";";
     }
 }

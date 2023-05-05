@@ -46,10 +46,8 @@ public class Company {
 
     @Override
     public String toString() {
-        return "Company{" +
-                "periodList=" + periodList +
-                ", company='" + name + '\'' +
-                ", website='" + website + '\'' +
-                '}';
+        return  "Период работы: " + periodList +
+                "; Компания: " + name +
+                "; Сайт: " + website + ';';
     }
 }
