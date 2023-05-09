@@ -3,15 +3,15 @@ package com.resume.webapp.model;
 import java.util.List;
 import java.util.Objects;
 
-public class CompanySection extends AbstractSection {
+public class OrganizationSection extends AbstractSection {
 
-    private final List<Company> companies;
+    private final List<Organization> companies;
 
-    public CompanySection(List<Company> companies) {
+    public OrganizationSection(List<Organization> companies) {
         this.companies = companies;
     }
 
-    public List<Company> getCompanies() {
+    public List<Organization> getCompanies() {
         return companies;
     }
 
@@ -20,7 +20,7 @@ public class CompanySection extends AbstractSection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        CompanySection that = (CompanySection) o;
+        OrganizationSection that = (OrganizationSection) o;
         return Objects.equals(companies, that.companies);
     }
 

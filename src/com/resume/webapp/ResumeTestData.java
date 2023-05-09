@@ -9,6 +9,11 @@ import java.util.List;
 public class ResumeTestData {
 
     public static void main(String[] args) {
+        testMethod("uuid_1", "Gleb Epifancev");
+    }
+
+    public static void testMethod(String uuid, String fullName){
+        Resume resume = new Resume(uuid,fullName);
 
         LocalDate startDateCompany = LocalDate.of(2023, 1, 13);
         LocalDate endDateCompany = LocalDate.of(2024, 1, 13);
@@ -16,15 +21,15 @@ public class ResumeTestData {
         periodList.add(new Period("Junior", "Делал то и то и это"
                 , startDateCompany, endDateCompany));
         periodList.add(new Period("Middle", "Делал еще больше", startDateCompany, endDateCompany));
-        List<Company> companyList = List.of(new Company(periodList, "OOO 'Компания'", "что-то да есть"));
-        CompanySection companySection = new CompanySection(companyList);
+        List<Organization> companyList = List.of(new Organization(periodList, "OOO 'Компания'", "что-то да есть"));
+        OrganizationSection companySection = new OrganizationSection(companyList);
 
         LocalDate startDateUniversity = LocalDate.of(2019, 9, 1);
         LocalDate endDateUniversity = LocalDate.of(2024, 5, 25);
         List<Period> educationList = List.of(new Period("Студент", "Обучался прикладной геодезии"
                 , startDateUniversity, endDateUniversity));
-        List<Company> universityList = List.of(new Company(educationList, "СГУГиТ", "sgugit.ru"));
-        CompanySection universitySection = new CompanySection(universityList);
+        List<Organization> universityList = List.of(new Organization(educationList, "СГУГиТ", "sgugit.ru"));
+        OrganizationSection universitySection = new OrganizationSection(universityList);
 
         List<String> achievementsList = new ArrayList<>();
         achievementsList.add("Реализация приложения ResumeStorage");
@@ -35,13 +40,10 @@ public class ResumeTestData {
         qualificationList.add("Окончил курсы JavaOps - BaseJava");
         ListSection qualification = new ListSection(qualificationList);
 
-        String position = "Trainee";
-        TextSection positionSection = new TextSection(position);
+        TextSection positionSection = new TextSection("Trainee");
 
         String personalQualities = "Инициативность, педантичность, скрупулезный";
         TextSection personalSection = new TextSection(personalQualities);
-
-        Resume resume = new Resume("uuid_1","Gleb Epifancev");
 
         resume.setContacts(ContactType.PHONE_NUMBER, "+79137114042");
         resume.setContacts(ContactType.EMAIL, "gleb.epifancev@mail.ru");
@@ -54,7 +56,5 @@ public class ResumeTestData {
         resume.setSection(SectionType.EDUCATION, universitySection);
         resume.setSection(SectionType.OBJECTIVE, positionSection);
         resume.setSection(SectionType.PERSONAL, personalSection);
-
-        System.out.println(resume);
     }
 }
