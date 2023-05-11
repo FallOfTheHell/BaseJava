@@ -9,10 +9,10 @@ import java.util.List;
 public class ResumeTestData {
 
     public static void main(String[] args) {
-        testMethod("uuid_1", "Gleb Epifancev");
+        getFilledResume("uuid_1", "Gleb Epifancev");
     }
 
-    public static void testMethod(String uuid, String fullName){
+    public static Resume getFilledResume(String uuid, String fullName){
         Resume resume = new Resume(uuid,fullName);
 
         LocalDate startDateCompany = LocalDate.of(2023, 1, 13);
@@ -56,5 +56,7 @@ public class ResumeTestData {
         resume.setSection(SectionType.EDUCATION, universitySection);
         resume.setSection(SectionType.OBJECTIVE, positionSection);
         resume.setSection(SectionType.PERSONAL, personalSection);
+
+        return resume;
     }
 }

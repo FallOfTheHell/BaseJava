@@ -26,22 +26,19 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     public void clear() {
-        File[] files = directory.listFiles();
-        for (File file : files) {
-            file.delete();
+        if (directory.listFiles() == null) {
+            throw new StorageException("File not found: ", directory.getName());
         }
+        doDelete(directory);
     }
 
     @Override
     public int size() {
         File[] files = directory.listFiles();
-        int count = 0;
-        for (File file : files) {
-            if (file.isFile()) {
-                count++;
-            }
+        if (files == null) {
+            throw new StorageException("File not found: ", directory.getName());
         }
-        return count;
+        return files.length;
     }
 
     @Override
@@ -73,12 +70,18 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected Resume doGet(File file) {
-        return doRead(file);
+        try {
+            return doRead(file);
+        } catch (IOException e) {
+            throw new StorageException("IO error", file.getName(), e);
+        }
     }
 
     @Override
     protected void doDelete(File file) {
-        file.delete();
+        if (!file.delete()) {
+            throw new StorageException("Error deleting file: ", file.getName());
+        }
     }
 
     @Override
@@ -87,7 +90,11 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         List<Resume> list = new ArrayList<>();
         for (File file : files) {
             if (file.isFile()) {
-                list.add(doRead(file));
+                try {
+                    list.add(doRead(file));
+                } catch (IOException e) {
+                    throw new StorageException("IO error", file.getName(), e);
+                }
             }
         }
         return list;
@@ -95,5 +102,5 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     protected abstract void doWrite(Resume r, File file) throws IOException;
 
-    protected abstract Resume doRead(File file);
+    protected abstract Resume doRead(File file) throws IOException;
 }

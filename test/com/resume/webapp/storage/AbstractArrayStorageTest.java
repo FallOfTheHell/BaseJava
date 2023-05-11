@@ -22,7 +22,7 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest{
         storage.clear();
         try {
             for (int i = 0; i <= STORAGE_LIMIT; i++) {
-                storage.save(new Resume("uuid_" + i, "uuid_" + i, contacts));
+                storage.save(new Resume("uuid_" + i, "uuid_" + i));
             }
             Assertions.fail("Переполнение произошло раньше времени");
         } catch (StorageException e) {
@@ -30,7 +30,7 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest{
         }
 
         assertThrows(StorageException.class, () -> {
-            storage.save(new Resume(UUID_OVERFLOW, UUID_OVERFLOW, contacts));
+            storage.save(new Resume(UUID_OVERFLOW, UUID_OVERFLOW));
         });
     }
 }
